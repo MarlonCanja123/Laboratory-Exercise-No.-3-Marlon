@@ -13,7 +13,7 @@ export default function Home() {
 
       <Link href="/login">
         <button style={{
-          padding: "10px 20px",
+          padding: "10px 20px", //trying to make the button bigger
           fontSize: "16px",
           marginTop: "20px"
         }}>
