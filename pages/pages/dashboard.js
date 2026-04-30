@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import { supabase } from "../../supabaseClient";
+import { getSupabase } from "../../supabaseClient";
 
 export default function Dashboard() {
 
   const [email, setEmail] = useState("");
 
   useEffect(() => {
+    const supabase = getSupabase();
     const user =
       supabase.auth.getUser();
 
@@ -19,6 +20,7 @@ export default function Dashboard() {
   }, []);
 
   const logout = async () => {
+    const supabase = getSupabase();
     await supabase.auth.signOut();
     alert("Logged out");
   };

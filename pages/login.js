@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { supabase } from "../supabaseClient";
+import { getSupabase } from "../supabaseClient";
 import { useRouter } from "next/router";
 
 export default function Login() {
@@ -12,6 +12,7 @@ export default function Login() {
   const handleSignUp = async () => {
     setMessage("Sending confirmation email...");
 
+    const supabase = getSupabase();
     const { data, error } =
       await supabase.auth.signUp({
         email,
@@ -26,6 +27,7 @@ export default function Login() {
   };
 
   const handleLogin = async () => {
+    const supabase = getSupabase();
     const { data, error } =
       await supabase.auth.signInWithPassword({
         email,
