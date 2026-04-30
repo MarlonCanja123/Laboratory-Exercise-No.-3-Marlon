@@ -1,13 +1,16 @@
 import { useState } from "react";
 import { supabase } from "../supabaseClient";
+import { useRouter } from "next/router";
 
 export default function Login() {
 
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
 
   const handleSignUp = async () => {
+    setMessage("Sending confirmation email...");
 
     const { data, error } =
       await supabase.auth.signUp({
@@ -18,12 +21,11 @@ export default function Login() {
     if (error) {
       setMessage(error.message);
     } else {
-      setMessage("Sign up successful!");
+      setMessage("Sign up successful! Please check your email to confirm your account before logging in.");
     }
   };
 
   const handleLogin = async () => {
-
     const { data, error } =
       await supabase.auth.signInWithPassword({
         email,
@@ -33,7 +35,8 @@ export default function Login() {
     if (error) {
       setMessage(error.message);
     } else {
-      setMessage("Login successful!");
+      setMessage("Login successful! Redirecting...");
+      router.push("/pages/dashboard");
     }
   };
 
